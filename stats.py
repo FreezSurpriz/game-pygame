@@ -1,7 +1,12 @@
-class Stats():
+class Stats:
     """Отслеживание статистики"""
+
     def __init__(self):
         """Инициализация статистики"""
+        self.player_hits = None
+        self.bot_hits = None
+        self.players_left = None
+        self.bots_left = None
         self.reset_stats()
         self.run_game = True
 

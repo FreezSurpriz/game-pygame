@@ -1,7 +1,9 @@
-import pygame
-import  schedule
 from threading import Timer
+
+import pygame
 from pygame.sprite import Sprite
+
+
 class Bot(Sprite):
     def __init__(self, screen):
         """Инициализация бота"""
@@ -25,11 +27,13 @@ class Bot(Sprite):
 
     def update_bot(self):
         """Движение бота"""
-        ##print(self.a)
-        ##print(self.x)
+
+        # print(self.a)
+        # print(self.x)
         def sleep():
             self.sleep = False
-        if self.sleep == False:
+
+        if not self.sleep:
             if self.rect.right == self.screen_rect.right:
                 self.a = False
             elif self.rect.x < 1280 and self.a == True:
@@ -38,22 +42,8 @@ class Bot(Sprite):
             if self.rect.left == 0:
                 self.a = True
             elif self.rect.left > 0 and self.a == False:
-                self.x -=  0.1
+                self.x -= 0.1
                 self.rect.x = self.x
         else:
             t = Timer(3.0, sleep)
             t.start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

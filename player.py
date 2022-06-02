@@ -1,7 +1,9 @@
-import  pygame
-import time
 from threading import Timer
+
+import pygame
 from pygame.sprite import Sprite
+
+
 class Player(Sprite):
     def __init__(self, screen):
         """Инициализация игрока"""
@@ -22,19 +24,20 @@ class Player(Sprite):
         """Рисование игрока"""
         self.screen.blit(self.image, self.rect)
 
-
     def update_player(self):
         """Обновление позиции игрока"""
+
         def sleep():
             self.sleep = False
-        if self.sleep == False:
+
+        if not self.sleep:
             if self.mright and self.rect.right < self.scree_rect.right:
-                self.center +=0.7
+                self.center += 0.7
             if self.mleft and self.rect.left > 0:
-                self.center -=0.7
+                self.center -= 0.7
             self.rect.centerx = self.center
         else:
-            t = Timer(3,sleep)
+            t = Timer(3, sleep)
             t.start()
 
     def create_gun(self):

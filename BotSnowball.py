@@ -1,7 +1,9 @@
 import pygame
+
+
 class Botsnowball(pygame.sprite.Sprite):
 
-    def __init__(self,screen,bot):
+    def __init__(self, screen, bot):
         """Создаем снежок в позиции врага"""
         super(Botsnowball, self).__init__()
         self.screen = screen
@@ -21,6 +23,3 @@ class Botsnowball(pygame.sprite.Sprite):
     def draw_botsnowball(self):
         """рисуем снежок """
         pygame.draw.rect(self.screen, self.color, self.rect)
-
-
-

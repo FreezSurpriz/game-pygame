@@ -1,14 +1,13 @@
-import pygame, sys
-from snowball import Snowball
-from bot import Bot
-import  random
-from menu import Menu
-import time
+import random
+
+import pygame
+import sys
+
 from BotSnowball import Botsnowball
+from snowball import Snowball
 
 
-
-def events(screen, stats,sc, menu, player, snowballs, bot, bot_snowballs,snowball, bot_snowball):
+def events(screen, stats, sc, menu, player, snowballs, bot, bot_snowballs, snowball, bot_snowball):
     """Обработка событий"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -29,15 +28,14 @@ def events(screen, stats,sc, menu, player, snowballs, bot, bot_snowballs,snowbal
                     print(snowball.col)
                     sc.show_score()
                     sc.image_score()
-                elif player.key == False:
+                elif not player.key:
                     new_snowball = Snowball(screen, player)
                     snowballs.add(new_snowball)
-
 
             if event.key == pygame.K_1:
                 menu.inder = True
                 player.create_gun()
-                #menu.show_time()
+                # menu.show_time()
                 snowballs.empty()
                 bot_snowballs.empty()
                 stats.bots_left = 3
@@ -47,8 +45,8 @@ def events(screen, stats,sc, menu, player, snowballs, bot, bot_snowballs,snowbal
                 sc.show_score()
                 stats.bot_hits = 0
                 stats.player_hits = 0
-                #menu.timer =
-                ##menu.image_time()
+                # menu.timer =
+                # menu.image_time()
 
             elif event.key == pygame.K_2:
                 player.key = True
@@ -73,9 +71,8 @@ def events(screen, stats,sc, menu, player, snowballs, bot, bot_snowballs,snowbal
             elif event.key == pygame.K_LEFT:
                 player.mleft = False
 
-
         i = random.randint(1, 5)
-       ##print(i)
+        # print(i)
         if i == 3:
             if len(bot_snowballs) < 3 and bot.sleep == False:
                 if bot_snowball.col != 0 and bot.key == True:
@@ -83,25 +80,25 @@ def events(screen, stats,sc, menu, player, snowballs, bot, bot_snowballs,snowbal
                     bot_snowballs.add(new_botsnowball)
                     bot_snowball.col -= 1
                     print(bot_snowball.col)
-                elif bot.key == False:
+                elif not bot.key:
                     new_botsnowball = Botsnowball(screen, bot)
                     bot_snowballs.add(new_botsnowball)
 
 
 def update_bot(bot):
-
     bot.update_bot()
 
-def update(bg_color, screen, stats, sc, menu, player, snowballs, bot, bot_snowballs, snowball, bot_snowball ):
+
+def update(bg_color, screen, stats, sc, menu, player, snowballs, bot, bot_snowballs, snowball, bot_snowball):
     """обновление экрана"""
     screen.fill(bg_color)
     sc.show_score()
     sc.show_menu()
     sc.image_score()
-    ##menu.show_time()
+    # menu.show_time()
 
     if menu.t == 0:
-        if stats.players_left != 0 and  stats.bots_left !=0:
+        if stats.players_left != 0 and stats.bots_left != 0:
             if stats.player_hits > stats.bot_hits:
                 sc.show_winner()
                 sc.show_score()
@@ -124,7 +121,7 @@ def update(bg_color, screen, stats, sc, menu, player, snowballs, bot, bot_snowba
         stats.run_game = False
 
     if snowball.col == 0 and bot_snowball.col == 0:
-        if len(snowballs) == 0 and len(bot_snowballs)==0:
+        if len(snowballs) == 0 and len(bot_snowballs) == 0:
             if stats.players_left != 0 and stats.bots_left != 0:
                 if stats.player_hits > stats.bot_hits:
                     sc.show_winner()
@@ -147,14 +144,12 @@ def update(bg_color, screen, stats, sc, menu, player, snowballs, bot, bot_snowba
 
             stats.run_game = False
 
-    if stats.players_left > stats.bots_left and stats.bots_left == 0:
+    if stats.players_left > stats.bots_left == 0:
         sc.show_winner()
         stats.run_game = False
     elif stats.players_left < stats.bots_left and stats.players_left == 0:
         sc.show_winner()
         stats.run_game = False
-
-
 
     for snowball in snowballs.sprites():
         snowball.draw_snowball()
@@ -166,10 +161,10 @@ def update(bg_color, screen, stats, sc, menu, player, snowballs, bot, bot_snowba
     pygame.display.flip()
 
 
-def update_snowballs(stats, sc, bot,snowballs, bot_snowballs):
-    """Обновление позицыи снежков"""
+def update_snowballs(stats, sc, bot, snowballs, bot_snowballs):
+    """Обновление позиции снежков"""
 
-    if stats.bots_left >0:
+    if stats.bots_left > 0:
         snowballs.update()
         for snowball in snowballs.copy():
             if snowball.rect.bottom <= 0:
@@ -182,17 +177,16 @@ def update_snowballs(stats, sc, bot,snowballs, bot_snowballs):
         stats.run_game = False
 
 
-
 def update_bot_snowballs(player, sc, bot_snowballs, stats, snowballs):
-    """Обновление позицыии снежков бота"""
+    """Обновление позиции снежков бота"""
     if stats.players_left > 0:
         bot_snowballs.update()
         for bot_snowball in bot_snowballs.copy():
             if bot_snowball.rect.top >= 800:
                 bot_snowballs.remove(bot_snowball)
-        ##print(len(bot_snowballs))
+        # print(len(bot_snowballs))
         if pygame.sprite.spritecollideany(player, bot_snowballs):
-            player_kill(stats,player, sc , bot_snowballs,snowballs)
+            player_kill(stats, player, sc, bot_snowballs, snowballs)
             sc.image_players()
 
     else:
@@ -201,11 +195,11 @@ def update_bot_snowballs(player, sc, bot_snowballs, stats, snowballs):
 
 def bot_kill(stats, bot, sc, snowballs, bot_snowballs):
     """Попадание по врагу"""
-    stats.bots_left  -= 1
+    stats.bots_left -= 1
     snowballs.empty()
     sc.image_players()
     bot_snowballs.empty()
-    #time.sleep(1)
+    # time.sleep(1)
     print(stats.bots_left)
     sc.image_score()
     bot.sleep = True
@@ -215,8 +209,9 @@ def bot_kill(stats, bot, sc, snowballs, bot_snowballs):
     print("Попадания: " + str(stats.player_hits))
     sc.show_score()
 
+
 def player_kill(stats, player, sc, bot_snowballs, snowballs):
-    """Попадение по игроку"""
+    """По падение по игроку"""
     stats.players_left -= 1
     bot_snowballs.empty()
     sc.image_players()
@@ -230,13 +225,8 @@ def player_kill(stats, player, sc, bot_snowballs, snowballs):
     stats.bot_hits += 1
 
 
-
-
-def stopgame(player, bot, snowballs,bot_snowballs):
+def stop_game(player, bot, snowballs, bot_snowballs):
     player.sleep = True
     bot.sleep = True
     snowballs.empty()
     bot_snowballs.empty()
-
-
-

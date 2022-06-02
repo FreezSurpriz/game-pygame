@@ -1,4 +1,5 @@
-import  pygame
+import pygame
+
 
 class Snowball(pygame.sprite.Sprite):
     def __init__(self, screen, player):
@@ -20,4 +21,4 @@ class Snowball(pygame.sprite.Sprite):
 
     def draw_snowball(self):
         """Рисуем снежок на экране"""
-        pygame.draw.rect(self.screen,self.color, self.rect)
+        pygame.draw.rect(self.screen, self.color, self.rect)

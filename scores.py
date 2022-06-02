@@ -1,8 +1,10 @@
 import pygame.font
-from player import Player
-from bot import Bot
-from snowball import Snowball
 from pygame.sprite import Group
+
+from bot import Bot
+from player import Player
+
+
 class Scores():
     """Вывод игровой информации"""
     def __init__(self,screen,stats, snowball,menu, player, bot_snowball, bot):

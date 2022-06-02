@@ -1,6 +1,5 @@
 import pygame
-from threading import Timer
-import time
+
 global sendEnmy
 class Menu():
     def __init__(self,screen, stats):
